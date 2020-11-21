@@ -37,7 +37,7 @@ $reply_message_user_id = $update['message']['reply_to_message']['from']['id'];
 
 
 
-$thugscripts_chat_id = '-1001458570254';
+$thugscripts_chat_id = '-1001291062558';
 $chat_id = (string)$cid;
 include 'default_welcome.php';
 
