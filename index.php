@@ -159,7 +159,7 @@ if ($chat_id == $thugscripts_chat_id) {
 }
 if ($update['message']['left_chat_member'] == true) {
 		$files2 = file_get_contents('goodbye.txt');
-		if ($files2 == '') {
+		if ($files2 == '1') {
 			$default_goodbye_msg = $rand_goodbye[mt_rand(0,count($rand_goodbye)-1)];
 			$default_wish_goob = [
         'chat_id' => ''.$cid.'',
