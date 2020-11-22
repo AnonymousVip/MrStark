@@ -310,6 +310,73 @@ else{
 
 }
 }
+	if (startsWith($text,'/past')) {
+	if ($reply_message == true) {
+$paste = [
+'content'=> $reply_message_text
+];
+  $curl3 = curl_init();
+    curl_setopt($curl3, CURLOPT_URL,"https://nekobin.com/api/documents");
+    curl_setopt($curl3, CURLOPT_POST, 1);
+    curl_setopt($curl3, CURLOPT_POSTFIELDS, $paste);
+    curl_setopt($curl3, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl3, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl3, CURLOPT_SSL_VERIFYPEER, 0);
+$response3 = curl_exec($curl3);
+$json = json_decode($response3,true);
+
+if ($json['ok']== '1') {
+	$key = $json['result']['key'];
+	$urrl = "https://nekobin.com/$key";
+	$textt = "Pasted Successfully To *Nekobin*!! \nUrl : $urrl";
+	$send_paste = [
+		'chat_id'=>$cid,
+		'text'=>$textt,
+		'reply_to_message_id'=>$mid,
+		'disable_web_page_preview'=>'True',
+	];
+	botaction("sendMessage",$send_paste);
+}
+else{
+	$error_paste_text = $json['error'];
+	$error_paste = [
+		'chat_id'=>$cid,
+		'text'=>$error_paste_text,
+		'reply_to_message_id'=>$mid,
+	];
+	botaction("sendMessage",$error_paste);
+	}
+}
+else{
+	$reply_error = [
+		'chat_id'=>$cid,
+		'text'=>'Whadya Want To Paste????',
+		'reply_to_message_id'=>$mid
+	];
+	botaction("sendMessage",$reply_error);
+}
+}
+
+if(startsWith($text,'/id')){
+	if ($reply_message == true) {
+		$id_of_user = [
+			'chat_id'=>$cid,
+			'text' => "$reply_message_user_fname $reply_message_user_lname's Id is <code>$reply_message_id</code>",
+			'reply_to_message_id'=>$mid,
+		];
+		botaction("sendMessage",$id_of_user);	
+	}
+	else{
+		$id_of_group = [
+			'chat_id'=>$cid,
+			'text'=>"This Group's Id Is : <code>$cid</code>",
+			'reply_to_message_id'=>$mid,
+		];
+		botaction("sendMessage",$id_of_group);
+
+	}
+}
+
 }
 else{
 	echo "Hi";
