@@ -388,7 +388,7 @@ foreach ($admin_array as $admin_id) {
 	$ia = [
 		'chat_id'=>$admin_id,
 		'text' => "<b>A Message Tagged With #help has been Found In @Thugscripts2.. Check It Master</b>",
-		'parse_mode'=>'HTML'
+		'parse_mode' => 'HTML',
 	];
 botaction("sendMessage",$ia);
 	$sta=[
