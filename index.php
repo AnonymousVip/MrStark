@@ -34,6 +34,10 @@ $nfullname = ''.$nfname.' '.$nlname.'';
 $reply_message = $update['message']['reply_to_message'];
 $reply_message_id = $update['message']['reply_to_message']['message_id'];
 $reply_message_user_id = $update['message']['reply_to_message']['from']['id'];
+$reply_message_text = $update['message']['reply_to_message']['text'];
+$reply_message_user_fname = $update['message']['reply_to_message']['from']['first_name'];
+$reply_message_user_lname = $update['message']['reply_to_message']['from']['last_name'];
+$reply_message_user_uname = $update['message']['reply_to_message']['from']['username'];
 
 
 
@@ -361,7 +365,8 @@ if(startsWith($text,'/id')){
 	if ($reply_message == true) {
 		$id_of_user = [
 			'chat_id'=>$cid,
-			'text' => "$reply_message_user_fname $reply_message_user_lname's Id is <code>$reply_message_id</code>",
+			'text' => "$reply_message_user_fname $reply_message_user_lname's Id is <code>$reply_message_user_id</code>",
+			'parse_mode' => 'HTML',
 			'reply_to_message_id'=>$mid,
 		];
 		botaction("sendMessage",$id_of_user);	
@@ -370,6 +375,7 @@ if(startsWith($text,'/id')){
 		$id_of_group = [
 			'chat_id'=>$cid,
 			'text'=>"This Group's Id Is : <code>$cid</code>",
+			'parse_mode' => 'HTML',
 			'reply_to_message_id'=>$mid,
 		];
 		botaction("sendMessage",$id_of_group);
