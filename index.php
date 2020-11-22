@@ -382,6 +382,30 @@ if(startsWith($text,'/id')){
 
 	}
 }
+$spam = '#help';
+if (strrpos($text, $spam) || startsWith($text,'#help')) {
+foreach ($admin_array as $admin_id) {
+	$ia = [
+		'chat_id'=>$admin_id,
+		'text' => "<b>A Message Tagged With #help has been Found In @Thugscripts2.. Check It Master</b>",
+		'parse_mode'=>'HTML'
+	];
+botaction("sendMessage",$ia);
+	$sta=[
+	'chat_id'=>$admin_id,
+	'from_chat_id' => $cid,
+	'message_id'=>$mid,
+];
+botaction("forwardMessage",$sta);
+print_r($dadel);
+}
+	$sen = [
+			'chat_id'=>$cid,
+			'text' => "<b>Thank You Tagging This Message With #help.. It Will Be Forwarded to All The Admins In This Channel !!</b>",
+			'reply_to_message_id'=>$mid,
+		];
+		botaction("sendMessage",$sen);	
+}
 
 }
 else{
