@@ -129,7 +129,8 @@ if ($chat_id == $thugscripts_chat_id) {
 	}
 	else{
 		$files = file_get_contents('welcome.txt');
-		if ($files == '') {
+		if ($files == '
+		') {
 			$default_welcome_msg = $rand_welcome[mt_rand(0,count($rand_welcome)-1)];
 			$default_wish_welcome = [
         'chat_id' => ''.$cid.'',
