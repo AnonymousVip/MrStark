@@ -402,6 +402,7 @@ print_r($dadel);
 	$sen = [
 			'chat_id'=>$cid,
 			'text' => "<b>Thank You Tagging This Message With #help.. It Will Be Forwarded to All The Admins In This Channel !!</b>",
+			'parse_mode' => 'HTML',
 			'reply_to_message_id'=>$mid,
 		];
 		botaction("sendMessage",$sen);	
