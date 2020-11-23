@@ -407,7 +407,92 @@ print_r($dadel);
 		];
 		botaction("sendMessage",$sen);	
 }
+if (startsWith($text,'/ping')) {
+	$ping_message = [
+		'chat_id'=>$cid,
+		'text'=>'Pinging',
+		'reply_to_message_id'=>$mid
+	];
+	$edit_id = (int)$mid+1;
+	$start_time = microtime(true);
+	// botaction("sendMessage",$ping_message);
 
+	$url2 = "https://api.telegram.org/bot$tok/sendMessage";
+    $curld2 = curl_init();
+    curl_setopt($curld2, CURLOPT_POST, true);
+    curl_setopt($curld2, CURLOPT_POSTFIELDS, $ping_message);
+    curl_setopt($curld2, CURLOPT_URL, $url2);
+    curl_setopt($curld2, CURLOPT_RETURNTRANSFER, true);
+    $output2 = curl_exec($curld2);
+    curl_close($curld2);
+    $damn = json_decode($output2,true);
+	$editing_id = $damn['result']['message_id'];
+	$end_time = microtime(true); 
+	$ping_time = ($end_time - $start_time)*1000; 
+	$ping_time = number_format((float)$ping_time, 3, '.', '')." ms";
+	$ping_message_to_send = "                              
+█▀█ █▀█ █▄░█ █▀▀
+█▀▀ █▄█ █░▀█ █▄█
+<b>Time Taken</b> => <code>$ping_time</code>";
+	$ping_edit_message=[
+		'chat_id'=>$cid,
+		'message_id'=>$editing_id,
+		'text'=>"$ping_message_to_send",
+		'parse_mode'=>'HTML'
+	];
+	botaction("editMessageText",$ping_edit_message);
+ print_r($dadel);
+}
+if (startsWith($text,'/textart')) {
+	if ($reply_message == true) {
+		$dadel_text = urlencode($reply_message_text);
+$ch1 = curl_init(); 
+curl_setopt($ch1, CURLOPT_URL, "https://artii.herokuapp.com/make?text=$dadel_text"); 
+curl_setopt($ch1, CURLOPT_POST, false); 
+curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1); 
+$output1231 = curl_exec($ch1); 
+$json1231 = json_decode($output1231,true);
+curl_close($ch);
+echo $output1231;
+	$send_text_art2 = [
+		'chat_id'=>$cid,
+		'text'=> "<code>$output1231</code>",
+		'parse_mode'=>'HTML',
+	];
+	botaction("sendMessage",$send_text_art2);
+
+	}
+	else{
+	$text_art_text = urlencode(str_replace('/textart', "", $text));
+	if ($text_art_text == "") {
+		$null_message = [
+			'chat_id'=> $cid,
+			'text'=> "<b>I Wish The Text is All In Your Mind.. Not Beside The Command </b><i>\nSyntax</i> = > <code>/textart Your-Mesage</code>",
+			'reply_to_message_id'=>$mid,
+			'parse_mode'=>'HTML',
+		];
+		print_r($null_message);
+		botaction("sendMessage",$null_message);
+		print_r($dadel);
+	}
+	else{
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_URL, "https://artii.herokuapp.com/make?text=$text_art_text"); 
+curl_setopt($ch, CURLOPT_POST, false); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+$output123 = curl_exec($ch); 
+$json123 = json_decode($output123,true);
+curl_close($ch);
+echo $output123;
+	$send_text_art = [
+		'chat_id'=>$cid,
+		'text'=> "<code>$output123</code>",
+		'parse_mode'=>'HTML',
+	];
+	botaction("sendMessage",$send_text_art);
+}
+}
+}
 }
 else{
 	echo "Hi";
