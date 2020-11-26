@@ -595,7 +595,15 @@ $font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font
 
 }
 	
-	if (startsWith($text,'/m')) {
+	if (!in_array('1458344478', $admin_array)) {
+	$i_am_not = [
+		'chat_id'=>$cid,
+		'text'=>'I am Not Admin To Mute And Unmute Members !!',
+		'reply_to_message_id'=>$mid
+	];
+	botaction("sendMessage",$i_am_not);
+}
+else{
 	$res = str_replace("/m", "", $text);
 	if ($res == '') {
 		$mute  = "<b>Silence Now...🤫🤫\n<a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> Is Muted...🤐🔇</b>";
@@ -604,7 +612,25 @@ $font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font
 		$mute = "<b>Silence Now...\n<a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> Is Muted...🤐🔇\nReason => <i>$res</i></b>";
 	}
 	if ($reply_message) {
-		if($status == 'creator' || $status == 'adminstrator'){
+		if (in_array($reply_message_user_id, $admin_array)) {
+	$no_cant = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b> How High Are You To Mute An Admin</b>"
+	];
+		botaction("sendMessage",$no_cant);
+}
+elseif($reply_message_user_id == '1458344478'){
+	$no_cant_ever = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>Have U became So Big To Mute Me??? Just Be In Your Limits</b>"
+	];
+		botaction("sendMessage",$no_cant);
+}
+		elseif($status == 'creator' || $status == 'administrator'){
 		if (is_null($can_send_messages) or $can_send_messages == '1') {	# code
 			$muting_member = [
 			'chat_id'=>$cid,
@@ -654,6 +680,7 @@ else{
 			'text'=>"<b>Is He A user??? Reply To A User's Message To Mute Him</b>"
 		];
 		botaction("sendMessage",$no_reply);
+}
 }
 }
 if (startsWith($text,'/um')) {	
