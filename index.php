@@ -579,7 +579,8 @@ botaction("sendMessage",$not_found);
 		botaction("sendMessage",$send_error);
 	}
 	else{
-$font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font_genarate_text&back=style2.jpg","https://linksind.net/arjunreddy/spyder.php?name=$font_genarate_text&back=style1.jpg","https://www.linksind.net/robo/spyder.php?name=$font_genarate_text&back=5.jpg","https://linksind.net/maari/spyder.php?name=$font_genarate_text&back=style1.jpg","https://linksind.net/cskjersey/spyder.php?name=$font_genarate_text&back=style1.jpg","https://www.linksind.net/padmavati/spyder.php?name=$font_genarate_text&back=style6.jpg");
+$font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font_genarate_text&back=style2.jpg","https://linksind.net/arjunreddy/spyder.php?name=$font_genarate_text&back=style1.jpg","https://www.linksind.net/robo/spyder.php?name=$font_genarate_text&back=5.jpg","https://linksind.net/maari/spyder.php?name=$font_genarate_text&back=style1.jpg","https://linksind.net/cskjersey/spyder.php?name=$font_genarate_text&back=style1.jpg","https://www.linksind.net/padmavati/spyder.php?name=$font_genarate_text&back=style6.jpg","http://moviefontgenerator.com/krack/spyder.php?name=$font_genarate_text&back=default.jpg","https://linksind.net/dhonicdp/spyder.php?name=$font_genarate_text&back=style1.jpg","https://linksind.net/radheshyam/spyder.php?name=$font_genarate_text&back=style1.jpg","https://linksind.net/kohlijersey/spyder.php?name=$font_genarate_text&back=style1.jpg","https://linksind.net/gangleader/spyder.php?name=$font_genarate_text&back=default.jpg","https://linksind.net/baitikochichusthey/spyder.php?name=$font_genarate_text&back=default.jpg","https://linksind.net/adipurush/spyder.php?name=$font_genarate_text&back=default.jpg","
+https://linksind.net/rrr/spyder.php?name=$font_genarate_text&back=style1.jpg");
 
 		$font = $font_list[mt_rand(0,5)];
 
