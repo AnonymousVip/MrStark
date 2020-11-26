@@ -594,7 +594,7 @@ $font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font
 	}
 	}
 	if(startsWith($text,'/m')){
-if (!in_array('1496625414', $admin_array)) {
+if (!in_array('1458344478', $admin_array)) {
 	$i_am_not = [
 		'chat_id'=>$cid,
 		'text'=>'I am Not Admin To Mute And Unmute Members !!',
@@ -620,7 +620,7 @@ else{
 	];
 		botaction("sendMessage",$no_cant);
 }
-elseif($reply_message_user_id == '1496625414'){
+elseif($reply_message_user_id == '1458344478'){
 	$no_cant_ever = [
 		'chat_id'=>$cid,
 		'reply_to_message_id'=>$mid,
