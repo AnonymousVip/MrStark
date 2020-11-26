@@ -71,6 +71,32 @@ if (array_search($fid, $admin_array)) {
 else{
 	$is_admin = false;
 }
+
+#####################USER PERMISSION##################################################################
+	  $ch12 = curl_init();
+curl_setopt($ch12, CURLOPT_URL, "https://api.telegram.org/bot$tok/getChatMember?chat_id=$cid&user_id=$reply_message_user_id"); 
+curl_setopt($ch12, CURLOPT_POST, false); 
+curl_setopt($ch12, CURLOPT_RETURNTRANSFER, 1); 
+    $output212 = curl_exec($ch12);
+$json122 = json_decode($output212,true);
+    curl_close($ch122);
+$can_send_messages =  $json122['result']['can_send_messages'];
+$can_send_media_messages = $json122['result']['can_send_media_messages'];
+$can_send_other_messages = $json122['result']['can_send_other_messages'];
+$can_add_web_page_previews = $json122['result']['can_add_web_page_previews'];
+##########################################################################################
+
+#####################################CHECK ADMIN #########################################
+$admi = curl_init();
+curl_setopt($admi, CURLOPT_URL, "https://api.telegram.org/bot$tok/getChatMember?chat_id=$cid&user_id=$fid"); 
+curl_setopt($admi, CURLOPT_POST, false); 
+curl_setopt($admi, CURLOPT_RETURNTRANSFER, 1); 
+    $output2121 = curl_exec($admi);
+$json1221 = json_decode($output2121,true);
+    curl_close($admi);
+$status = $json1221['result']['status'];
+#########################################################################################
+
 function botaction($method, $data){
 	global $tok;
 	global $dadel;
@@ -567,6 +593,119 @@ $font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font
     botaction("sendPhoto",$send_photo);
 	}
 
+}
+	
+	if (startsWith($text,'/m')) {
+	$res = str_replace("/m", "", $text);
+	if ($res == '') {
+		$mute  = "<b>Silence Now...🤫🤫\n<a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> Is Muted...🤐🔇</b>";
+	}
+	else{
+		$mute = "<b>Silence Now...\n<a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> Is Muted...🤐🔇\nReason => <i>$res</i></b>";
+	}
+	if ($reply_message) {
+		if($status == 'creator' || $status == 'adminstrator'){
+		if (is_null($can_send_messages) or $can_send_messages == '1') {	# code
+			$muting_member = [
+			'chat_id'=>$cid,
+			'user_id'=>$reply_message_user_id,
+			'can_send_messages'=>'False'
+		];
+		botaction("restrictChatMember",$muting_member);
+		$mute_message = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'disable_web_page_preview'=>'True',
+		'text'=>"$mute"
+		];
+		botaction("sendMessage",$mute_message);
+}
+		else{
+			$user_is_muted = [
+			'chat_id'=>$cid,
+			'text' => "<b>There Is already a Cheese Burger 🍔 in his Mouth 😁.. \n[<i>User Is Already Muted</i>]</b>",
+			'parse_mode'=>'HTML',
+			'reply_to_message_id'=>$mid,
+				];
+			botaction("sendMessage",$user_is_muted);
+						}
+
+		}
+
+
+		else{
+		$who1 = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'caption'=>"<b>Who The Hell Are You !! Only Admins Are Allowed To Perform This Action..\nWant A Infinity Snap ??🤜</b>",
+			'parse_mode'=>'HTML',
+			'video'=>'https://s2.gifyu.com/images/ezgif.com-gif-maker93d51c6b80ca89ad.gif',
+		];
+		botaction("sendVideo",$who1);
+		}	
+
+}
+else{
+	$no_reply = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'parse_mode'=>'HTML',
+			'text'=>"<b>Is He A user??? Reply To A User's Message To Mute Him</b>"
+		];
+		botaction("sendMessage",$no_reply);
+}
+}
+if (startsWith($text,'/um')) {	
+	if ($reply_message == true) {
+		if($status == 'creator' || $status == 'adminstrator'){
+		if(is_null($can_send_messages) and is_null($can_send_media_messages) and is_null($can_send_other_messages) and is_null($can_add_web_page_previews) or $can_send_messages == '1' and $can_send_media_messages == '1' and $can_send_other_messages == '1' and $can_add_web_page_previews == '1'){
+			echo "User Is Already Free";
+		}
+		else{
+		$unmute_message = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'parse_mode'=>'HTML',
+			'text'=>"<b>$reply_message_user_fname Is Free Now... User Unmuted</b>"
+		];
+		botaction("sendMessage",$unmute_message);
+$unmuting_member = [
+'chat_id'=>$cid,
+'user_id'=>$reply_message_user_id,
+'can_send_messages'=>'True',
+'can_invite_users'=>'True',
+'can_pin_messages'=>'True',
+'can_send_polls'=>'True',
+'can_change_info'=>'True',
+'can_send_media_messages'=>'True',
+'can_send_other_messages'=>'True',
+'can_add_web_page_previews'=>'True',
+];
+		botaction("restrictChatMember",$unmuting_member);
+		print_r($dadel);
+}
+	}
+	else{
+		$who = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'caption'=>"<b>Who The Hell Are You !! Only Admins Are Allowed To Perform This Action..\nWant A Infinity Snap ??🤜</b>",
+			'parse_mode'=>'HTML',
+			'video'=>'https://s2.gifyu.com/images/ezgif.com-gif-maker93d51c6b80ca89ad.gif',
+		];
+		botaction("sendVideo",$who);
+	}
+}
+	else{
+		$no_reply = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'parse_mode'=>'HTML',
+			'text'=>"<b>Is He A user??? Reply To A User's Message To Un-Mute Him</b>"
+		];
+		botaction("sendMessage",$no_reply);
+	}
 }
 }
 else{
