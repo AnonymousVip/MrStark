@@ -732,7 +732,6 @@ $unmuting_member = [
 			'text'=>"<b>Is He A user??? Reply To A User's Message To Un-Mute Him</b>"
 		];
 		botaction("sendMessage",$no_reply);
-	}
 }
 }
 else{
