@@ -592,7 +592,7 @@ $font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font
     ];
     botaction("sendPhoto",$send_photo);
 	}
-
+	}
 }
 else{
 	echo "Hi";
