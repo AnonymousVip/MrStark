@@ -595,15 +595,7 @@ $font_list = array("https://www.linksind.net/tigerzindahai/spyder.php?name=$font
 
 }
 	
-	if (!in_array('1458344478', $admin_array)) {
-	$i_am_not = [
-		'chat_id'=>$cid,
-		'text'=>'I am Not Admin To Mute And Unmute Members !!',
-		'reply_to_message_id'=>$mid
-	];
-	botaction("sendMessage",$i_am_not);
-}
-else{
+	if (startsWith($text,'/m')) {
 	$res = str_replace("/m", "", $text);
 	if ($res == '') {
 		$mute  = "<b>Silence Now...🤫🤫\n<a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> Is Muted...🤐🔇</b>";
@@ -612,25 +604,7 @@ else{
 		$mute = "<b>Silence Now...\n<a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> Is Muted...🤐🔇\nReason => <i>$res</i></b>";
 	}
 	if ($reply_message) {
-		if (in_array($reply_message_user_id, $admin_array)) {
-	$no_cant = [
-		'chat_id'=>$cid,
-		'reply_to_message_id'=>$mid,
-		'parse_mode'=>'HTML',
-		'text'=>"<b> How High Are You To Mute An Admin</b>"
-	];
-		botaction("sendMessage",$no_cant);
-}
-elseif($reply_message_user_id == '1458344478'){
-	$no_cant_ever = [
-		'chat_id'=>$cid,
-		'reply_to_message_id'=>$mid,
-		'parse_mode'=>'HTML',
-		'text'=>"<b>Have U became So Big To Mute Me??? Just Be In Your Limits</b>"
-	];
-		botaction("sendMessage",$no_cant);
-}
-		elseif($status == 'creator' || $status == 'administrator'){
+		if($status == 'creator' || $status == 'administrator'){
 		if (is_null($can_send_messages) or $can_send_messages == '1') {	# code
 			$muting_member = [
 			'chat_id'=>$cid,
@@ -678,58 +652,6 @@ else{
 			'reply_to_message_id'=>$mid,
 			'parse_mode'=>'HTML',
 			'text'=>"<b>Is He A user??? Reply To A User's Message To Mute Him</b>"
-		];
-		botaction("sendMessage",$no_reply);
-}
-}
-}
-if (startsWith($text,'/um')) {	
-	if ($reply_message == true) {
-		if($status == 'creator' || $status == 'adminstrator'){
-		if(is_null($can_send_messages) and is_null($can_send_media_messages) and is_null($can_send_other_messages) and is_null($can_add_web_page_previews) or $can_send_messages == '1' and $can_send_media_messages == '1' and $can_send_other_messages == '1' and $can_add_web_page_previews == '1'){
-			echo "User Is Already Free";
-		}
-		else{
-		$unmute_message = [
-			'chat_id'=>$cid,
-			'reply_to_message_id'=>$mid,
-			'parse_mode'=>'HTML',
-			'text'=>"<b>$reply_message_user_fname Is Free Now... User Unmuted</b>"
-		];
-		botaction("sendMessage",$unmute_message);
-$unmuting_member = [
-'chat_id'=>$cid,
-'user_id'=>$reply_message_user_id,
-'can_send_messages'=>'True',
-'can_invite_users'=>'True',
-'can_pin_messages'=>'True',
-'can_send_polls'=>'True',
-'can_change_info'=>'True',
-'can_send_media_messages'=>'True',
-'can_send_other_messages'=>'True',
-'can_add_web_page_previews'=>'True',
-];
-		botaction("restrictChatMember",$unmuting_member);
-		print_r($dadel);
-}
-	}
-	else{
-		$who = [
-			'chat_id'=>$cid,
-			'reply_to_message_id'=>$mid,
-			'caption'=>"<b>Who The Hell Are You !! Only Admins Are Allowed To Perform This Action..\nWant A Infinity Snap ??🤜</b>",
-			'parse_mode'=>'HTML',
-			'video'=>'https://s2.gifyu.com/images/ezgif.com-gif-maker93d51c6b80ca89ad.gif',
-		];
-		botaction("sendVideo",$who);
-	}
-}
-	else{
-		$no_reply = [
-			'chat_id'=>$cid,
-			'reply_to_message_id'=>$mid,
-			'parse_mode'=>'HTML',
-			'text'=>"<b>Is He A user??? Reply To A User's Message To Un-Mute Him</b>"
 		];
 		botaction("sendMessage",$no_reply);
 }
