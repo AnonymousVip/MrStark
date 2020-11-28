@@ -740,6 +740,192 @@ $unmuting_member = [
 		botaction("sendMessage",$no_reply);
 	}
 }
+	
+	if (startsWith($text,'/b')) {
+	if ($reply_message == true) {
+     if(!in_array('1458344478', $admin_array)) {
+	$i_am_not_ad = [
+		'chat_id'=>$cid,
+		'text'=>'I am Not Admin To Ban And Unban Members !!',
+		'reply_to_message_id'=>$mid
+	];
+	botaction("sendMessage",$i_am_not_ad);
+}
+else{
+	$reason = str_replace('/b', "", $text);
+if($reason == ''){
+	$message_for_ban = "!!Ban Event!!\nBanned This Noob Successfully";
+}
+else{
+	$message_for_ban = "!!Ban Event!!\nBanned This Noob Successfully \n Reason => $reason";
+}
+
+	if ($reply_message_user_id == '1458344478') {
+			$bot_no_ban = [
+			'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>Oh ban Myself !! Noob</b>"
+	];
+	botaction("sendMessage",$bot_no_ban);
+		}
+		elseif (in_array($reply_message_user_id, $admin_array)) {
+	$no_cant_d = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b> How High Are You To Ban An Admin</b>"
+	];
+		botaction("sendMessage",$no_cant_d);
+}
+		elseif($status == 'creator' || $status == 'administrator'){
+			if ($stato == 'kicked') {
+				$is_already_unbanned = [
+					'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b> User Is Already banned Or Kicked</b>"
+	];
+	botaction("sendMessage",$is_already_unbanned);
+			}
+			else{
+				$ban_user = [
+					'chat_id'=>$cid,
+					'user_id'=>$reply_message_user_id,
+				];
+				$ban_message = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>$message_for_ban</b>"
+		];
+				botaction("kickChatMember",$ban_user);
+				botaction("sendMessage",$ban_message);
+
+			}
+
+
+}
+else{
+	$not_admin = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b> You Are Not Admin You Noob !!</b>"
+	];
+	botaction("sendMessage",$not_admin);
+}
+}
+
+	}
+	else{
+		$gib_reply = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>Reply To A User Message to Ban Him !!</b>"
+		];
+		botaction("sendMessage",$gib_reply);
+	}
+}
+
+
+if (startsWith($text,'/ub')) {
+	$message_for_unban = "Un-banned $reply_message_user_fname Successfully !!";
+	if ($reply_message == true) {
+     if(!in_array('1458344478', $admin_array)) {
+	$i_am_not_adq = [
+		'chat_id'=>$cid,
+		'text'=>'I am Not Admin To Ban And Unban Members !!',
+		'reply_to_message_id'=>$mid
+	];
+	botaction("sendMessage",$i_am_not_adq);
+}
+else{
+	if ($reply_message_user_id == '1458344478') {
+			$bot_no_unban = [
+			'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>Oh Unban Myself !! Noob</b>"
+	];
+	botaction("sendMessage",$bot_no_unban);
+		}
+		elseif (in_array($reply_message_user_id, $admin_array)) {
+	$no_cant_dq = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b> He Is admin Dude</b>"
+	];
+		botaction("sendMessage",$no_cant_dq);
+}
+		elseif($status == 'creator' || $status == 'administrator'){
+			if ($stato == 'left' || $stato == 'kicked') {
+				echo "Here";
+				$unban_user = [
+					'chat_id'=>$cid,
+					'user_id'=>$reply_message_user_id,
+				];
+				$unban_message = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>$message_for_unban</b>"
+		];
+				botaction("unbanChatMember",$unban_user);
+				botaction("sendMessage",$unban_message);
+			}
+			else{
+				
+$is_already_unbanned = [
+					'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>He Is In the Group !! Don't Try To Cheat Me</b>"
+	];
+	botaction("sendMessage",$is_already_unbanned);
+			}
+
+
+}
+else{
+	$not_adminq = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b> You Are Not Admin You Noob !!</b>"
+	];
+	botaction("sendMessage",$not_adminq);
+}
+}
+
+	}
+	else{
+		$gib_replyq = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"<b>Reply To A User Message to Ban Him !!</b>"
+		];
+		botaction("sendMessage",$gib_replyq);
+	}
+}
+
+if (startsWith($text,'/decide')) {
+	$decide_url = file_get_contents("https://yesno.wtf/api");
+	$jsonw = json_decode($decide_url,true);
+	$answer = strtoupper($jsonw['answer']);
+	$gif_of_answer = $jsonw['image'];
+	$send_answer = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'caption'=>"Friday Has Decide => <b>$answer</b>",
+			'parse_mode'=>'HTML',
+			'video'=>$gif_of_answer,
+		];
+		botaction("sendVideo",$send_answer);
+}
 }
 else{
 	echo "Hi";
