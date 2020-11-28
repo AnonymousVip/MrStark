@@ -84,6 +84,7 @@ $can_send_messages =  $json122['result']['can_send_messages'];
 $can_send_media_messages = $json122['result']['can_send_media_messages'];
 $can_send_other_messages = $json122['result']['can_send_other_messages'];
 $can_add_web_page_previews = $json122['result']['can_add_web_page_previews'];
+$stato = $json122['result']['status'];
 ##########################################################################################
 
 #####################################CHECK ADMIN #########################################
