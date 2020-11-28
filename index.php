@@ -926,6 +926,46 @@ if (startsWith($text,'/decide')) {
 		];
 		botaction("sendVideo",$send_answer);
 }
+	
+	if (startsWith($text,'/tweet')) {
+$command = $text;
+$command = str_replace('/tweet',"",$command);
+$username_and_message = explode(':',$command);
+$username = str_replace(' ',"",$username_and_message['0']);
+$messagew = $username_and_message['1'];
+if (is_null($username) || is_null($messagew)) {
+	$gib_correct_text_dude = [
+		'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'caption'=>"<b>Syntax</b> => <code>/tweet (twitter username [without @]):(message)</code>",
+			'parse_mode'=>'HTML',
+			'photo'=>'https://nekobot.xyz/imagegen/d/8/b/6a1899ddc3b42cd10185b6815c2ce.png',
+];
+botaction("sendPhoto",$gib_correct_text_dude);
+}
+else{
+$tweet = urlencode($messagew);
+    $ch = curl_init( ); 
+curl_setopt($ch, CURLOPT_URL, "https://nekobot.xyz/api/imagegen?type=tweet&username=$username&text=$tweet"); 
+curl_setopt($ch, CURLOPT_POST, false); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+$tweet_image = curl_exec($ch); 
+$json1 = json_decode($output,true);
+curl_close($ch);
+$tweet_json = json_decode($tweet_image,true);
+$tweet_link = $tweet_json['message'];
+
+$send_tweet = [
+	'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'caption'=>"<b>$username Has Successfully Tweeted $messagew</b>",
+			'parse_mode'=>'HTML',
+			'photo'=>$tweet_link,
+];
+botaction("sendPhoto",$send_tweet);
+
+}
+
+}
 }
 else{
 	echo "Hi";
