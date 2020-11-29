@@ -310,6 +310,9 @@ else{
 	}
 }
 if (startsWith($text,'/promo')) {
+	$custom_title = str_replace('/promo', '', $text);
+	$custom_title = str_replace(' ', "", $custom_title);
+	if($custom_title == ''){
 	echo $reply_message_id;
 	$promote_member = [
 		'chat_id'=>$cid,
@@ -323,6 +326,7 @@ if (startsWith($text,'/promo')) {
         'can_promote_members'=>'False',
         	];
 botaction('promoteChatMember',$promote_member);
+print_r($dadel);
 if ($dueto == true) {
 	$cpm = [
 		'chat_id'=>$cid,
@@ -341,7 +345,61 @@ else{
 
 }
 }
-	if (startsWith($text,'/past')) {
+else{
+
+		$promote_member1 = [
+		'chat_id'=>$cid,
+		'user_id'=>$reply_message_user_id,
+		'can_change_info'=>'True',
+        'can_edit_messages'=>'False',
+        'can_delete_messages'=>'True',
+        'can_invite_users'=>'True',
+        'can_pin_messages'=>'True',
+        'can_restrict_members'=>'True',
+        'can_promote_members'=>'False',
+        	];
+botaction('promoteChatMember',$promote_member1);
+print_r($dadel);
+if ($dueto == true) {
+	$cpm1 = [
+		'chat_id'=>$cid,
+		'text'=> "Can't Promote Member \nReason => $dueto",
+		'reply_to_message_id'=>$mid
+	];
+	botaction("sendMessage",$cpm1);
+}
+else{
+$custom_title12 = [
+'chat_id'=>$cid,
+'user_id'=>$reply_message_user_id,
+'custom_title'=>$custom_title
+];
+botaction("setChatAdministratorCustomTitle",$custom_title12);
+if ($dueto == true) {
+	$csct = [
+			'chat_id'=>$cid,
+		'text'=> "<b>Custom Title Accepts Only 16 Characters And Emoji's Are Not Allowed..Kindly Check The Title</b>",
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>"HTML"
+];
+botaction("sendMessage",$csct);
+}
+else{
+	$mp1 = [
+		'chat_id'=>$cid,
+		'text'=> "Promoted Successfully",
+		'reply_to_message_id'=>$mid
+	];
+		botaction("sendMessage",$mp1);
+
+}
+}
+
+
+}
+
+}
+if (startsWith($text,'/past')) {
 	if ($reply_message == true) {
 $paste = [
 'content'=> $reply_message_text
@@ -359,10 +417,12 @@ $json = json_decode($response3,true);
 if ($json['ok']== '1') {
 	$key = $json['result']['key'];
 	$urrl = "https://nekobin.com/$key";
-	$textt = "Pasted Successfully To *Nekobin*!! \nUrl : $urrl";
+	$raw = "https://nekobin.com/raw/$key";
+	$textt = "Pasted Successfully To *Nekobin*!! \n<b>Paste Url</b> : $urrl\n<b>Raw Url</b> :$raw";
 	$send_paste = [
 		'chat_id'=>$cid,
 		'text'=>$textt,
+		'parse_mode'=>'HTML',
 		'reply_to_message_id'=>$mid,
 		'disable_web_page_preview'=>'True',
 	];
@@ -921,7 +981,7 @@ if (startsWith($text,'/decide')) {
 	$send_answer = [
 			'chat_id'=>$cid,
 			'reply_to_message_id'=>$mid,
-			'caption'=>"Friday Has Decide => <b>$answer</b>",
+			'caption'=>"Stark Says => <b>$answer</b>",
 			'parse_mode'=>'HTML',
 			'video'=>$gif_of_answer,
 		];
