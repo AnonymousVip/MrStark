@@ -39,7 +39,148 @@ $reply_message_user_fname = $update['message']['reply_to_message']['from']['firs
 $reply_message_user_lname = $update['message']['reply_to_message']['from']['last_name'];
 $reply_message_user_uname = $update['message']['reply_to_message']['from']['username'];
 
+$items = array("cast iron skillet",
+    "angry meow",
+    "cricket bat",
+    "wooden cane",
+    "shovel",
+    "toaster",
+    "book",
+    "laptop",
+    "rubber chicken",
+    "spiked bat",
+    "heavy rock",
+    "chunk of dirt",
+    "ton of bricks",
+    "rasengan",
+    "spirit bomb",
+    "100-Type Guanyin Bodhisattva",
+    "rasenshuriken",
+    "Murasame",
+    "ban",
+    "chunchunmaru",
+    "Kubikiribōchō",
+    "rasengan",
+    "spherical flying kat",
+);
 
+$hits = array("hits",
+    "whacks",
+    "slaps",
+    "smacks",
+    "bashes",
+    "pats",
+);
+$throws = array("throws",
+    "flings",
+    "chucks",
+    "hurls",
+);
+$slap_sentences = array("$reply_message_user_fname was killed by magic.",
+    "$reply_message_user_fname starved without pats.",
+    "$reply_message_user_fname was knocked into the void by $fname.",
+    "$reply_message_user_fname fainted.",
+    "$reply_message_user_fname is out of usable Pokemon! $reply_message_user_fname whited out!.",
+    "$reply_message_user_fname is out of usable Pokemon! $reply_message_user_fname blacked out!.",
+    "$reply_message_user_fname got rekt.",
+    "$reply_message_user_fname's melon was split by $fname.",
+    "$reply_message_user_fname was sliced and diced by $fname.",
+    "$reply_message_user_fname played hot-potato with a grenade.",
+    "$reply_message_user_fname was knifed by $fname.",
+    "$reply_message_user_fname ate a grenade.",
+    "$reply_message_user_fname is what's for dinner!",
+    "$reply_message_user_fname was terminated by $fname.",
+    "$fname spammed $reply_message_user_fname's email.",
+    "$fname RSA-encrypted $reply_message_user_fname and deleted the private key.",
+    "$fname put $reply_message_user_fname in the friendzone.",
+    "$fname slaps $reply_message_user_fname with a DMCA takedown request!",
+    "$reply_message_user_fname got a house call from Doctor $fname.",
+    "$fname beheaded $reply_message_user_fname.",
+    "$reply_message_user_fname got stoned...by an angry mob.",
+    "$fname sued the pants off $reply_message_user_fname.",
+    "$reply_message_user_fname was one-hit KO'd by $fname.",
+    "$fname sent $reply_message_user_fname down the memory hole.",
+    "$reply_message_user_fname was a mistake. - '$fname' ",
+    "$reply_message_user_fname was made redundant.",
+    "$fname $hits $reply_message_user_fname with a bat!.",
+    "$fname $hits $reply_message_user_fname with a Taijutsu Kick!.",
+    "$fname $hits $reply_message_user_fname with X-Gloves!.",
+    "$fname $hits $reply_message_user_fname with a Jet Punch!.",
+    "$fname $hits $reply_message_user_fname with a Jet Pistol!.",
+    "$fname $hits $reply_message_user_fname with a United States of Smash!.",
+    "$fname $hits $reply_message_user_fname with a Detroit Smash!.",
+    "$fname $hits $reply_message_user_fname with a Texas Smash!.",
+    "$fname $hits $reply_message_user_fname with a California Smash!.",
+    "$fname $hits $reply_message_user_fname with a New Hampshire Smash!.",
+    "$fname $hits $reply_message_user_fname with a Missouri Smash!.",
+    "$fname $hits $reply_message_user_fname with a Carolina Smash!.",
+    "$fname $hits $reply_message_user_fname with a King Kong Gun!.",
+    "$fname $hits $reply_message_user_fname with a baseball bat - metal one.!.",
+    "*Serious punches $reply_message_user_fname*.",
+    "*Normal punches $reply_message_user_fname*.",
+    "*Consecutive Normal punches $reply_message_user_fname*.",
+    "*Two Handed Consecutive Normal Punches $reply_message_user_fname*.",
+    "*Ignores $reply_message_user_fname to let them die of embarassment*.",
+    "*points at $reply_message_user_fname* What's with this sassy... lost child?.",
+    "*Hits $reply_message_user_fname with a Fire Tornado*.",
+    "$fname pokes $reply_message_user_fname in the eye !",
+    "$fname pokes $reply_message_user_fname on the sides!",
+    "$fname pokes $reply_message_user_fname!",
+    "$fname pokes $reply_message_user_fname with a needle!",
+    "$fname pokes $reply_message_user_fname with a pen!",
+    "$fname pokes $reply_message_user_fname with a stun gun!",
+    "$reply_message_user_fname is secretly a Furry!",
+    "Hey Everybody! $fname is asking me to be mean!",
+    "( ･_･)ﾉ⌒●~* (･.･;) <-$reply_message_user_fname",
+    "Take this $reply_message_user_fname\n(ﾉﾟДﾟ)ﾉ ))))●~* ",
+    "Here $reply_message_user_fname hold this\n(｀・ω・)つ ●~＊",
+    "( ・_・)ノΞ●~*  $reply_message_user_fname\nDieeeee!!.",
+    "( ・∀・)ｒ鹵~<≪巛;ﾟДﾟ)ﾉ\n*Bug sprays $reply_message_user_fname*.",
+    "( ﾟДﾟ)ﾉ占~<巛巛巛.\n-$reply_message_user_fname You pest!",
+    "( う-´)づ︻╦̵̵̿╤── \(˚☐˚”)/ $reply_message_user_fname.",
+    "$fname $hits $reply_message_user_fname with a $items.",
+    "$fname $hits $reply_message_user_fname in the face with a $items.",
+    "$fname $hits $reply_message_user_fname around a bit with a $items.",
+    "$fname $throws a $items at $reply_message_user_fname.",
+    "$fname grabs a $items and $throws it at $reply_message_user_fname's face.",
+    "$fname launches a $items in $reply_message_user_fname's general direction.",
+    "$fname starts slapping $reply_message_user_fname silly with a $items.",
+    "$fname pins $reply_message_user_fname down and repeatedly $hits them with a $items.",
+    "$fname grabs up a $items and $hits $reply_message_user_fname with it.",
+    "$fname ties $reply_message_user_fname to a chair and $throws a $items at them.",
+    "$fname gave a friendly push to help $reply_message_user_fname learn to swim in lava.",
+    "$fname bullied $reply_message_user_fname.",
+    "Nyaan ate $reply_message_user_fname's leg. *nomnomnom*",
+    "$fname $throws a master ball at $reply_message_user_fname, resistance is futile.",
+    "$fname hits $reply_message_user_fname with an action beam...bbbbbb (ง・ω・)ง ====*",
+    "$fname ara ara's $reply_message_user_fname.",
+    "$fname ora ora's $reply_message_user_fname.",
+    "$fname muda muda's $reply_message_user_fname.",
+    "$reply_message_user_fname was turned into a Jojo reference!",
+    "$fname hits $reply_message_user_fname with $items.",
+    "Round 2!..Ready? .. FIGHT!!",
+    "WhoPixel will oof $reply_message_user_fname to infinity and beyond.",
+    "$reply_message_user_fname ate a bat and discovered a new disease.",
+    "$fname folded $reply_message_user_fname into a paper plane",
+    "$fname served $reply_message_user_fname some bat soup.",
+    "$reply_message_user_fname was sent to his home, the planet of the apes.",
+    "$fname kicked $reply_message_user_fname out of a moving train.",
+    "$reply_message_user_fname just killed John Wick’s dog.",
+    "$fname performed an Avada Kedavra spell on $reply_message_user_fname.",
+    "$fname subjected $reply_message_user_fname to a fiery furnace.",
+    "Sakura Haruno just got more useful than $reply_message_user_fname",
+    "$fname unplugged $reply_message_user_fname's life support.",
+    "$fname subscribed $reply_message_user_fname' to 5 years of bad internet.",
+    "You know what’s worse than Dad jokes? $reply_message_user_fname!",
+    "$fname took all of $reply_message_user_fname's cookies.",
+    "$reply_message_user_fname wa mou.......Shindeiru! - $fname.",
+    "$reply_message_user_fname lost his race piece!",  #No game no life reference
+    "Shut up $reply_message_user_fname, you are just $reply_message_user_fname.",  #No game no life reference
+    "$fname hits $reply_message_user_fname with Aka si anse!",  #No game no life reference
+    "@NeoTheKitty scratches $reply_message_user_fname",  #Pixels pet cat - @NeoTheKitty 
+    "Majin buu ate $reply_message_user_fname",  #Dbz
+    "Goblin slayer slays $reply_message_user_fname",  #Goblin Slayer
+);
 
 $thugscripts_chat_id = '-1001291062558';
 $chat_id = (string)$cid;
@@ -1027,6 +1168,35 @@ botaction("sendPhoto",$send_tweet);
 }
 
 }
+	
+	if (startsWith($text,'/slap')) {
+	if ($reply_message) {
+		if($reply_message_user_id == '1496625414'){
+			$slap = 'Stop Slapping Me 🥺🥺';
+		}
+		else{
+		$slap = $slap_sentences[mt_rand(0,count($slap_sentences))];
+	}
+		$slap_message = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'text'=>$slap,
+		];
+		botaction("sendMessage",$slap_message);
+		print_r($dadel);
+	}
+	else{
+		$reply_to_slap = [
+			'chat_id'=>$cid,
+			'reply_to_message_id'=>$mid,
+			'text'=>'Reply To A Message To Slap That User',
+		];
+		botaction("sendMessage",$reply_to_slap);
+	}
+		
+
+}
+
 }
 else{
 	echo "Hi";
