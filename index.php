@@ -453,6 +453,7 @@ else{
 if (startsWith($text,'/promo')) {
 	$custom_title = str_replace('/promo', '', $text);
 	$custom_title = str_replace(' ', "", $custom_title);
+	if($status == 'creator' || $status == 'administrator'){
 	if($custom_title == ''){
 	echo $reply_message_id;
 	$promote_member = [
@@ -534,6 +535,13 @@ else{
 		botaction("sendMessage",$mp1);
 
 }
+}
+else{
+	$not_amind_you = [
+		'chat_id'=>$cid,
+		'text'=>'Not Admin',
+	];
+	botaction("sendMessage",$not_amind_you);
 }
 
 
