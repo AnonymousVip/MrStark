@@ -445,7 +445,7 @@ else{
   	botaction("sendSticker",$no_unpin1);
   }
 }
-}if (startsWith($text,'/delt')) {
+if (startsWith($text,'/delt')) {
 	if ($reply_message == true) {
 		$check = 'Yes';
 if (array_search($fid, $admin_array)) {
