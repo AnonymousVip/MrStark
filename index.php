@@ -39,7 +39,7 @@ $reply_message_user_fname = $update['message']['reply_to_message']['from']['firs
 $reply_message_user_lname = $update['message']['reply_to_message']['from']['last_name'];
 $reply_message_user_uname = $update['message']['reply_to_message']['from']['username'];
 
-$items = array("cast iron skillet",
+$items_list = array("cast iron skillet",
     "angry meow",
     "cricket bat",
     "wooden cane",
@@ -63,19 +63,22 @@ $items = array("cast iron skillet",
     "rasengan",
     "spherical flying kat",
 );
+$item = $item_list[mt_rand(0,23)];
 
-$hits = array("hits",
+$hits_list = array("hits",
     "whacks",
     "slaps",
     "smacks",
     "bashes",
     "pats",
 );
-$throws = array("throws",
+$hits = $hits_list[mt_rand(0,5)];
+$throws_list = array("throws",
     "flings",
     "chucks",
     "hurls",
 );
+$throws = $throws_list[mt_rand(0,3)];
 $slap_sentences = array("$reply_message_user_fname was killed by magic.",
     "$reply_message_user_fname starved without pats.",
     "$reply_message_user_fname was knocked into the void by $fname.",
@@ -1254,7 +1257,19 @@ botaction("sendPhoto",$send_tweet);
 		
 
 }
+if (startsWith($text,'/advice')) {
+	$advice_list = json_decode(file_get_contents("https://api.adviceslip.com/advice"),true);
+	$advice = $advice_list['slip']['advice'];
 
+	$send_advice = [
+		'chat_id'=>$cid,
+		'reply_to_message_id'=>$mid,
+		'parse_mode'=>'HTML',
+		'text'=>"Your Advice Slip => <code><b>$advice</b></code>"
+	];
+	botaction("sendMessage",$send_advice);
+}
+	
 }
 else{
 	echo "Hi";
