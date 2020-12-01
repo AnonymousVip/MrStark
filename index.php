@@ -452,8 +452,19 @@ else{
 }
 if (startsWith($text,'/promo')) {
 	$custom_title = str_replace('/promo', '', $text);
-	$custom_title = str_replace(' ', "", $custom_title);
-	if($status == 'creator' || $status == 'administrator'){
+	$custom_title = explode(" ", $custom_title);
+    array_shift($custom_title);
+    $custom_title = implode(" ", $custom_title);
+    if ($reply_message == true) {
+        if ($reply_message_user_id == '1458344478') {
+            $send_comedy_sticker = [
+                'chat_id'=>$cid,
+                'sticker'=>"CAACAgUAAx0CVvAEDgACCjVfxiq99Y9kTwKfDkt8sosY8AJZeAACygEAAn0paVRfusqeaHpxFh4E",
+                'reply_to_message_id'=>$mid,
+            ];  
+            botaction("sendSticker",$send_comedy_sticker);
+        }
+    elseif($status == 'creator' || $status == 'administrator'){
 	if($custom_title == ''){
 	echo $reply_message_id;
 	$promote_member = [
@@ -536,17 +547,27 @@ else{
 
 }
 }
+
+
+}
+}
 else{
-	$not_amind_you = [
-		'chat_id'=>$cid,
-		'text'=>'Not Admin',
-	];
-	botaction("sendMessage",$not_amind_you);
+    $not_admin_fool = [
+        'chat_id'=>$cid,
+        'sticker'=>'CAACAgUAAx0CVvAEDgACCjpfxi1lZUtRD7Aw71rE4eWIO_s3TAACRQEAAikKaVRLYtlxuqog8x4E',
+        'reply_to_message_id'=>$mid
+    ];
+    botaction("sendSticker",$not_admin_fool);
 }
-
-
 }
-
+else{
+    $no_reply_giben = [
+        'chat_id'=>$cid,
+        'text'=>"Gib Reply Bro",
+        'reply_to_message_id'=>$mid
+    ];
+    botaction("sendMessage",$no_reply_giben);
+}
 }
 if (startsWith($text,'/past')) {
 	if ($reply_message == true) {
