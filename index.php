@@ -356,6 +356,7 @@ if ($update['message']['left_chat_member'] == true) {
 	}
   }
   if (startsWith($text,'/pun')) {
+    if($status == 'creator' || $status == 'administrator'){
   	if ($reply_message == true) {
   	$pin_message = [
   		'chat_id'=>$cid,
@@ -382,9 +383,18 @@ if ($update['message']['left_chat_member'] == true) {
   	botaction("sendMessage",$rme);
   }
 }
-
+else{
+    $no_admin = [
+        'chat_id'=>$cid,
+        'sticker'=>'CAACAgQAAx0CVvAEDgACCkZfxjSYSW1sMX1qAeJN0N1eyago_AACnhAAAgldMVL9s6RBVcuMlB4E',
+        'reply_to_message_id'=>$mid
+    ];
+    botaction("sendSticker",$no_admin);
+}
+}
 
   if (startsWith($text,'/unpun')) {
+  	 if($status == 'creator' || $status == 'administrator'){
   	$unpin_message = [
   		'chat_id'=>$cid,
   	];
@@ -399,8 +409,18 @@ if ($update['message']['left_chat_member'] == true) {
   	  		botaction("sendMessage",$nowam);
 
   	}
+  }
+  else{
+  	$no_unpin = [
+  		'chat_id'=>$cid,
+  		'sticker'=>'CAACAgQAAx0CVvAEDgACCk5fxjbiErSlfTgv3xw93H_mEHoiAQACyRAAAgldMVKJo4aijxWpqR4E',
+  		'reply_to_message_id'=>$mid,
+  	];
+  	botaction("sendSticker",$no_unpin);
+  }
 }
   if (startsWith($text,'/unpunall')) {
+  	  	 if($status == 'creator' || $status == 'administrator'){
   	$unpin_all_message = [
   		'chat_id'=>$cid,
   	];
@@ -415,8 +435,17 @@ if ($update['message']['left_chat_member'] == true) {
   	  		botaction("sendMessage",$noqwam);
 
   	}
+  }
+  else{
+  	$no_unpin1 = [
+  		'chat_id'=>$cid,
+  		'sticker'=>'CAACAgQAAx0CVvAEDgACCk5fxjbiErSlfTgv3xw93H_mEHoiAQACyRAAAgldMVKJo4aijxWpqR4E',
+  		'reply_to_message_id'=>$mid,
+  	];
+  	botaction("sendSticker",$no_unpin1);
+  }
 }
-if (startsWith($text,'/delt')) {
+}if (startsWith($text,'/delt')) {
 	if ($reply_message == true) {
 		$check = 'Yes';
 if (array_search($fid, $admin_array)) {
