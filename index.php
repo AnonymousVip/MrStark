@@ -389,7 +389,7 @@ if ($update['message']['left_chat_member'] == true) {
 else{
     $no_admin = [
         'chat_id'=>$cid,
-        'sticker'=>'CAACAgQAAx0CVvAEDgACCkZfxjSYSW1sMX1qAeJN0N1eyago_AACnhAAAgldMVL9s6RBVcuMlB4E',
+        'sticker'=>'CAACAgUAAx0CTPQNHgACKuBfx6FRbVfRs-xGswZEpHd_Eu7MJQACWgEAAkJVGSt1pffoMAaqgB4E',
         'reply_to_message_id'=>$mid
     ];
     botaction("sendSticker",$no_admin);
@@ -416,7 +416,7 @@ else{
   else{
   	$no_unpin = [
   		'chat_id'=>$cid,
-  		'sticker'=>'CAACAgQAAx0CVvAEDgACCk5fxjbiErSlfTgv3xw93H_mEHoiAQACyRAAAgldMVKJo4aijxWpqR4E',
+  		'sticker'=>'CAACAgUAAx0CTPQNHgACKuBfx6FRbVfRs-xGswZEpHd_Eu7MJQACWgEAAkJVGSt1pffoMAaqgB4E',
   		'reply_to_message_id'=>$mid,
   	];
   	botaction("sendSticker",$no_unpin);
@@ -442,7 +442,7 @@ else{
   else{
   	$no_unpin1 = [
   		'chat_id'=>$cid,
-  		'sticker'=>'CAACAgQAAx0CVvAEDgACCk5fxjbiErSlfTgv3xw93H_mEHoiAQACyRAAAgldMVKJo4aijxWpqR4E',
+  		'sticker'=>'CAACAgUAAx0CTPQNHgACKuBfx6FRbVfRs-xGswZEpHd_Eu7MJQACWgEAAkJVGSt1pffoMAaqgB4E',
   		'reply_to_message_id'=>$mid,
   	];
   	botaction("sendSticker",$no_unpin1);
