@@ -1269,7 +1269,56 @@ if (startsWith($text,'/advice')) {
 	];
 	botaction("sendMessage",$send_advice);
 }
-	
+if (array_key_exists($reply_message_user_id, $afk_list)) {
+    $user_is_afk_reason = $afk_list["$reply_message_user_id"];
+    $user_is_afk_text = "<b>Dude!</b> <a href='t.me/$reply_message_user_uname'>$reply_message_user_fname</a> <b>Is AFK Due To</b> <code>$user_is_afk_reason</code> <b>!!\nHe Will Answer You When He Comes Online...Please be Patient</b>";
+    $user_is_afk = [
+    'chat_id'=>$cid,
+    'text'=>"$user_is_afk_text",
+    'parse_mode'=>'HTML',
+    'disable_web_page_preview'=>'True',
+    'reply_to_message_id'=>$mid
+];
+botaction("sendMessage",$user_is_afk);
+}
+if (array_key_exists($fid, $afk_list)) {
+    echo $reso = str_replace(' ', '%20', $afk_list["$fid"]);
+    //echo "User Out Of AFK";
+$remove_afk = file_get_contents("https://i-love-php.tk/Stark/no_afk.php?user_id=$fid&reason=$reso");
+    $no_afk_text = "<a href='t.me/$uname'>$fname</a> <b>Is Back</b> \n";
+    $is_not_afk = [
+        'chat_id'=>$cid,
+        'text'=>"$no_afk_text",
+        'parse_mode'=>'HTML',
+        'disable_web_page_preview'=>'True',
+        'reply_to_message_id'=>$mid
+    ];
+    botaction("sendMessage",$is_not_afk);
+}
+
+if (startsWith($text,'/af')) {
+        $afk_reason = str_replace('/af', '', $text);
+    $afk_reason = explode(" ", $afk_reason);
+    array_shift($afk_reason);
+    $afk_reason = implode(" ", $afk_reason);
+if ($afk_reason == '') {
+    $afk_text = "<a href='t.me/$uname'>$fname</a> <b>seems too busy 👀</b> \n<code>He Is On AFK (Away From Keyboard)</code>";
+}
+else{
+    $afk_text = "<a href='t.me/$uname'>$fname</a> <b>seems too busy 👀</b> \n<code>He Is On AFK (Away From Keyboard)</code>\n<b>Reason</b> :- <code>$afk_reason</code>";
+}
+$afk_reason_add = str_replace(' ', '%20', $afk_reason);
+echo $afk_text;
+    $add_afk = file_get_contents("https://i-love-php.tk/Stark/afk.php?user_id=$fid&reason=$afk_reason_add");
+    $is_afk = [
+        'chat_id'=>$cid,
+        'text'=>"$afk_text",
+        'parse_mode'=>'HTML',
+        'disable_web_page_preview'=>'True',
+        'reply_to_message_id'=>$mid
+    ];
+    botaction("sendMessage",$is_afk);
+}	
 }
 else{
 	echo "Hi";
