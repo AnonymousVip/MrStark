@@ -184,6 +184,11 @@ $slap_sentences = array("$reply_message_user_fname was killed by magic.",
     "Majin buu ate $reply_message_user_fname",  #Dbz
     "Goblin slayer slays $reply_message_user_fname",  #Goblin Slayer
 );
+$afk_list = file_get_contents("https://i-love-php.tk/Stark/afk.txt");
+$afk_list = explode("\n", $afk_list);
+$afk_list = implode('&', $afk_list);
+// array_pop($afk_list);
+parse_str($afk_list,$afk_list);
 
 $thugscripts_chat_id = '-1001291062558';
 $chat_id = (string)$cid;
@@ -1283,8 +1288,7 @@ botaction("sendMessage",$user_is_afk);
 }
 if (array_key_exists($fid, $afk_list)) {
     echo $reso = str_replace(' ', '%20', $afk_list["$fid"]);
-    //echo "User Out Of AFK";
-$remove_afk = file_get_contents("https://i-love-php.tk/Stark/no_afk.php?user_id=$fid&reason=$reso");
+$remove_afk = file_get_contents("https://i-love-php.tk/Stark/Thug/no_afk.php?user_id=$fid&reason=$reso");
     $no_afk_text = "<a href='t.me/$uname'>$fname</a> <b>Is Back</b> \n";
     $is_not_afk = [
         'chat_id'=>$cid,
@@ -1309,7 +1313,7 @@ else{
 }
 $afk_reason_add = str_replace(' ', '%20', $afk_reason);
 echo $afk_text;
-    $add_afk = file_get_contents("https://i-love-php.tk/Stark/afk.php?user_id=$fid&reason=$afk_reason_add");
+    $add_afk = file_get_contents("https://i-love-php.tk/Stark/Thug/afk.php?user_id=$fid&reason=$afk_reason_add");
     $is_afk = [
         'chat_id'=>$cid,
         'text'=>"$afk_text",
