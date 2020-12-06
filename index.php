@@ -184,7 +184,7 @@ $slap_sentences = array("$reply_message_user_fname was killed by magic.",
     "Majin buu ate $reply_message_user_fname",  #Dbz
     "Goblin slayer slays $reply_message_user_fname",  #Goblin Slayer
 );
-$afk_list = file_get_contents("https://i-love-php.tk/Stark/afk.txt");
+$afk_list = file_get_contents("https://i-love-php.tk/Stark/Thug/afk.txt");
 $afk_list = explode("\n", $afk_list);
 $afk_list = implode('&', $afk_list);
 // array_pop($afk_list);
