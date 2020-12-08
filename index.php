@@ -38,6 +38,18 @@ $reply_message_text = $update['message']['reply_to_message']['text'];
 $reply_message_user_fname = $update['message']['reply_to_message']['from']['first_name'];
 $reply_message_user_lname = $update['message']['reply_to_message']['from']['last_name'];
 $reply_message_user_uname = $update['message']['reply_to_message']['from']['username'];
+#######################################################################################
+###########################CALL BACK DATA##############################################
+$callback = $update['callback_query'];
+$callback_id = $update['callback_query']['id'];
+$callback_from_id = $update['callback_query']['from']['id'];
+$callback_from_uname = $update['callback_query']['from']['username'];
+$callback_from_fname = $update['callback_query']['from']['first_name'];
+$callback_from_lname = $update['callback_query']['from']['last_name'];
+$callback_user_data = $update['callback_query']['data'];
+$callback_message_id = $update['callback_query']['message']['id'];
+$cbid = $update['callback_query']['message']['chat']['id'];
+$cbmid = $update['callback_query']['message']['message_id'];
 
 $items_list = array("cast iron skillet",
     "angry meow",
@@ -187,8 +199,13 @@ $slap_sentences = array("$reply_message_user_fname was killed by magic.",
 $afk_list = file_get_contents("https://i-love-php.tk/Stark/Thug/afk.txt");
 $afk_list = explode("\n", $afk_list);
 $afk_list = implode('&', $afk_list);
-// array_pop($afk_list);
 parse_str($afk_list,$afk_list);
+
+$warn_users = file_get_contents("https://i-love-php.tk/Stark/Thug/warn.txt");
+$warn_users = explode("\n", $warn_users);
+$warn_users = implode('&', $warn_users);
+parse_str($warn_users,$warn_users);
+
 
 $thugscripts_chat_id = '-1001291062558';
 $chat_id = (string)$cid;
@@ -268,7 +285,7 @@ function startsWith ($string, $startString)
     $len = strlen($startString); 
     return (substr($string, 0, $len) === $startString); 
 }
-if ($chat_id == $thugscripts_chat_id) {
+if ($chat_id == $thugscripts_chat_id || $cbid == $thugscripts_chat_id) {
 	if (startsWith($text,'/setwelc')) {
 		$custom_welcome_msg = str_replace('/setwelc', "", $text);
 		$file = fopen('welcome.txt', 'r+');
@@ -1322,7 +1339,241 @@ echo $afk_text;
         'reply_to_message_id'=>$mid
     ];
     botaction("sendMessage",$is_afk);
-}	
+}
+	if (startsWith($text,'/w')) {
+    if ($reply_message) {
+        
+        if ($status == 'creator' || $status == 'administrator') {
+            if ($reply_message_user_uname == 'IamStark_Bot') {
+                $bot_cant_warn = [
+                    'chat_id'=>$cid,
+                    'text'=>'Wanna Ban Myself...Dont Behave Like Dumb',
+                    'reply_to_message_id'=>$mid,
+                ];
+                botaction("sendMessage",$bot_cant_warn);
+
+            }
+            elseif ($stato == 'creator' || $stato == 'administrator') {
+                 $admin_no_warn = [
+                    'chat_id'=>$cid,
+                    'text'=>'Wanna Warn An Admin...Shut Up And Sit Aside !!',
+                    'reply_to_message_id'=>$mid,
+                ];
+                botaction("sendMessage",$admin_no_warn);
+
+            }
+            else{
+                if (array_key_exists($reply_message_user_id,$warn_users)) {
+                    $warns = (int)$warn_users["$reply_message_user_id"];
+                    echo $add_warn = $warns + 1;
+                    $add_warn_to_user = file_get_contents("https://i-love-php.tk/Stark/Thug/add_warn.php?user_id=$reply_message_user_id&warn=$add_warn");
+
+        if ($add_warn == '3') {
+            $warn_limit_reached = [
+            'chat_id'=>$cid,
+            'user_id'=>$reply_message_user_id,
+        ];
+        botaction("kickChatMember",$warn_limit_reached);
+        $muted_msg = "$reply_message_user_fname Has Reached His Warn Limits...\n Warns => 3/3 \n $reply_message_user_fname is Banned...";
+        $send_mute = [
+            'chat_id'=>$cid,
+            'reply_to_message_id'=>$mid,
+            'text'=>$muted_msg,
+            'parse_mode'=>"HTML",
+        ];
+        botaction("sendMessage",$send_mute);
+
+        }
+        else{
+    $warn_reason = str_replace('/w', '', $text);
+    $warn_reason = explode(" ", $warn_reason);
+    array_shift($warn_reason);
+    $warn_reason = implode(" ", $warn_reason);
+
+    $keyboard = [
+    'inline_keyboard' => [[['text' => '🛑 Remove Warn (admin only)', 'callback_data' => ''.$reply_message_user_id.'']]]];
+$encodedKeyboard = json_encode($keyboard);
+if ($warn_reason == '') {
+   $warn_message = "<b>$reply_message_user_fname</b> You Are Crossing Your Limits \n You Have Been warned \n Warns => $add_warn/3 \n";
+
+}
+else{
+    $warn_message = "<b>$reply_message_user_fname</b> You Are Crossing Your Limits \n You Have Been warned \n Warns => $add_warn/3 \n Latest Warn Reason => <code>$warn_reason</code>";
+
+}
+     $add_warn_to_existing_warn = [
+        'chat_id' => ''.$uid.'',
+        'text' => "$warn_message",
+        'parse_mode' => 'HTML',
+        'reply_to_message_id'=>''.$mid.'',
+        'reply_markup' => $encodedKeyboard,
+    ];
+    botaction("sendMessage",$add_warn_to_existing_warn);
+    print_r($dadel);
+                }
+            }
+                else{
+                    $warns = (int)$warn_users["$reply_message_user_id"];
+                    $add_warn_to_user = file_get_contents("https://i-love-php.tk/Stark/Thug/add_warn.php?user_id=$reply_message_user_id&warn=1");
+    $keyboard = [
+    'inline_keyboard' => [[['text' => '🛑 Remove Warn (admin only)', 'callback_data' => ''.$reply_message_user_id.'']]]];
+$encodedKeyboard = json_encode($keyboard);
+$warn_message = "<b>$reply_message_user_fname</b> You Are Crossing Your Limits \n You Have Been warned \n Warns => 1/3 \n";
+     $add_warn_user = [
+        'chat_id' => ''.$uid.'',
+        'text' => "$warn_message",
+        'parse_mode' => 'HTML',
+        'reply_to_message_id'=>''.$mid.'',
+        'reply_markup' => $encodedKeyboard,
+    ];
+botaction("sendMessage",$add_warn_user);
+    print_r($dadel);
+
+                }
+
+            }
+        }
+        else{
+            $warn_no_admin = [
+                'chat_id'=>$cid,
+                'text'=>'Only Admins Can Execute This Command',
+                'reply_to_message_id'=>$mid,
+            ];
+            botaction("sendMessage",$warn_no_admin);
+        }
+    
+
+    }
+    else{
+        $no_reply_warn = [
+            'chat_id'=>$cid,
+            'text'=>'Gib Reply Dude!!',
+            'reply_to_message_id'=>$mid
+        ];
+        botaction("sendMessage",$no_reply_warn);
+    }
+
+
+
+print_r($warn_users);
+}
+
+if ($callback_id) {
+  if (in_array($callback_from_id, $admin_array)) {
+            $removed_warn_name = json_decode(file_get_contents("https://api.telegram.org/bot$tok/getChatMember?chat_id=$cbid&user_id=$callback_user_data"),true);
+        $removed_warn_name = $removed_warn_name['result']['user']['first_name'];
+
+    if (in_array($callback_user_data, $warn_users)) {
+    print_r($warn_users);
+       echo $warns_before = (int)$warn_users["$callback_user_data"];
+       echo $warn_remove = $warns_before - 1;
+       $removing_warn = file_get_contents("https://i-love-php.tk/Stark/Thug/remove_warn.php?user_id=$callback_user_data&warn=$warn_remove");
+        ;
+
+       echo $remove_warn_edit = "Admin $callback_from_fname Has Successfully Removed $removed_warn_name's Warning";
+       $edit_warn_message = [
+        'chat_id'=>$cbid,
+        'message_id'=>$cbmid,
+        'text'=>$remove_warn_edit,
+        'parse_mode'=>'HTML',
+    ];
+    botaction("editMessageText",$edit_warn_message);
+    print_r($dadel);
+}
+else{
+    echo "Hmm";
+    $no_warning_message = "$removed_warn_name Has No Warnings !!";
+    $edit_no_warn = [
+        'chat_id'=>$cbid,
+        'message_id'=>$cbmid,
+        'text'=>$no_warning_message,
+        'parse_mode'=>'HTML'
+    ];
+    botaction("editMessageText",$edit_no_warn);
+    print_r($dadel);
+}
+    }
+    else{
+        $reply_pop_up = [
+            'callback_query_id'=>$callback_id,
+            'text'=>'You Are Not Admin!! Shut Up And Do Your Work.. Dont Try To Perform',
+            'show_alert'=>'True'
+        ];
+        botaction("answerCallbackQuery",$reply_pop_up);
+        print_r($dadel);
+    } 
+}
+
+
+if (startsWith($text,'/uw')) {
+    if ($reply_message) {
+        
+        if ($status == 'creator' || $status == 'administrator') {
+            if ($reply_message_user_uname == 'IamStark_Bot') {
+                $bot_cant_warn = [
+                    'chat_id'=>$cid,
+                    'text'=>'Wanna Un Ban Myself...Dont Behave Like Dumb',
+                    'reply_to_message_id'=>$mid,
+                ];
+                botaction("sendMessage",$bot_cant_warn);
+
+            }
+            elseif ($stato == 'creator' || $stato == 'administrator') {
+                 $admin_no_warn = [
+                    'chat_id'=>$cid,
+                    'text'=>'Wanna Un Warn An Admin...Shut Up And Sit Aside !!',
+                    'reply_to_message_id'=>$mid,
+                ];
+                botaction("sendMessage",$admin_no_warn);
+
+            }
+            else{
+                if (array_key_exists($reply_message_user_id,$warn_users)) {
+                    $warns12 = (int)$warn_users["$reply_message_user_id"];
+                    $del_warn = $warns12 - 1;
+                    $del_warn_to_user = file_get_contents("https://i-love-php.tk/Stark/Thug/remove_warn.php?user_id=$reply_message_user_id&warn=$del_warn");
+;
+
+  $unwarn_message = "<b>$reply_message_user_fname</b> Is Un-Warned";
+     $del_warn_to_existing_warn = [
+        'chat_id' => ''.$uid.'',
+        'text' => "$unwarn_message",
+        'parse_mode' => 'HTML',
+        'reply_to_message_id'=>''.$mid.'',
+ 
+    ];
+    botaction("sendMessage",$del_warn_to_existing_warn);
+    print_r($dadel);
+}
+                else{
+               $no_warns_there = [
+                'chat_id'=>$cid,
+                'text'=>'This User Has No Warnings',
+                'parse_mode'=>'HTML',
+                'reply_to_message_id'=>$mid
+            ];
+            botaction("sendMessage",$no_warns_there);
+
+}
+
+            }
+        }
+        else{
+            $warn_no_admin = [
+                'chat_id'=>$cid,
+                'text'=>'Only Admins Can Execute This Command',
+                'reply_to_message_id'=>$mid,
+            ];
+            botaction("sendMessage",$warn_no_admin);
+        }
+    
+
+    }
+
+
+
+}
+	
 }
 else{
 	echo "Hi";
