@@ -1413,13 +1413,24 @@ else{
                 }
             }
                 else{
+    $warn_reason = str_replace('/w', '', $text);
+    $warn_reason = explode(" ", $warn_reason);
+    array_shift($warn_reason);
+    $warn_reason = implode(" ", $warn_reason);
+
                     $warns = (int)$warn_users["$reply_message_user_id"];
                     $add_warn_to_user = file_get_contents("https://i-love-php.tk/Stark/Thug/add_warn.php?user_id=$reply_message_user_id&warn=1");
     $keyboard = [
     'inline_keyboard' => [[['text' => '🛑 Remove Warn (admin only)', 'callback_data' => ''.$reply_message_user_id.'']]]];
 $encodedKeyboard = json_encode($keyboard);
-$warn_message = "<b>$reply_message_user_fname</b> You Are Crossing Your Limits \n You Have Been warned \n Warns => 1/3 \n";
-     $add_warn_user = [
+if ($warn_reason == '') {
+   $warn_message = "<b>$reply_message_user_fname</b> You Are Crossing Your Limits \n You Have Been warned \n Warns => 1/3 \n";
+
+}
+else{
+    $warn_message = "<b>$reply_message_user_fname</b> You Are Crossing Your Limits \n You Have Been warned \n Warns => 1/3 \n Latest Warn Reason => <code>$warn_reason</code>";
+
+}     $add_warn_user = [
         'chat_id' => ''.$uid.'',
         'text' => "$warn_message",
         'parse_mode' => 'HTML',
@@ -1463,7 +1474,7 @@ if ($callback_id) {
             $removed_warn_name = json_decode(file_get_contents("https://api.telegram.org/bot$tok/getChatMember?chat_id=$cbid&user_id=$callback_user_data"),true);
         $removed_warn_name = $removed_warn_name['result']['user']['first_name'];
 
-    if (in_array($callback_user_data, $warn_users)) {
+    if (array_key_exists($callback_user_data, $warn_users)) {
     print_r($warn_users);
        echo $warns_before = (int)$warn_users["$callback_user_data"];
        echo $warn_remove = $warns_before - 1;
